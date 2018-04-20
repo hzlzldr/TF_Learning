@@ -24,6 +24,7 @@ Pycharm多行注释解注释：按快捷键Ctrl + /
 
 import tensorflow as tf
 import pandas as pd
+import time
 
 hello=tf.constant('hello tensorflow')
 sess=tf.Session()
