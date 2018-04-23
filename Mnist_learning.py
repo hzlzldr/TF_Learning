@@ -43,7 +43,7 @@ y=tf.nn.softmax(tf.matmul(x,W)+b)
 #创建损失函数（交叉熵），模型训练和收敛
 y_=tf.placeholder("float",[None,10])
 cross_entropy=-tf.reduce_sum(y_*tf.log(y))
-train_step=tf.train.GradientDescentOptimizer(0.01).minimize(cross_entropy)
+train_step=tf.train.GradientDescentOptimizer(0.005).minimize(cross_entropy)
 
 #初始化变量，开始训练
 init=tf.initialize_all_variables()
@@ -52,7 +52,7 @@ sess.run(init)
 
 #训练模型，重复1000
 start=time.time()
-for i in range(1000):
+for i in range(10000):
     print("the "+str(i)+"th is running...")
     batch_xs, batch_ys = mnist.train.next_batch(100)
     sess.run(train_step, feed_dict={x: batch_xs, y_: batch_ys})
@@ -65,3 +65,7 @@ print(all)
 correct_prediction=tf.equal(tf.argmax(y,1),tf.argmax(y_,1))
 correct_precent=tf.reduce_mean(tf.cast(correct_prediction,"float"))
 print(sess.run(correct_precent,feed_dict={x:mnist.test.images, y_:mnist.test.labels}))
+
+#0.9212  iter=10000,step_length=0.007
+#0.9219  iter=100000,step_length=0.007
+#0.9245  iter=10000,step_length=0.005
