@@ -65,8 +65,7 @@ def nn():
         #set iter-num
         step=5000
         for i in range(step):
-            start=(batch_size*i)\
-                  %data_size
+            start=(batch_size*i)%data_size
             end=min(start+batch_size,data_size)
 
             sess.run(train_step,feed_dict={x:X[start:end],y_:Y[start:end]})
