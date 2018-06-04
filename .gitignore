@@ -1,0 +1,14 @@
+*.jpg
+*.xml
+*.txt
+*.xml
+*.pyc
+*.csv
+*.pb
+*.gz
+*.checkpoint
+*.index
+*.meta
+*.bak
+\checkpoint
+\LICENSE

@@ -1,0 +1,36 @@
+
+syntax="proto2";
+
+package tutorial;
+
+//写注释采用c++的风格加//
+
+message Person{
+    required string name=1;// =1 代表将这个item的标识符定为1，1-15的标识符只占用一个字节，因而常用于频繁item
+                           //标识符从1开始计数
+    required int32 id =2 [packed=true]; //required表示必须提供的字段,[packed=true]用来为基本数字类型提供高效编码
+    optional string mail=3; //optional 代表可选字段
+
+    enum PhoneType{//enum 定义一个枚举类型
+
+    MOBILE =0;
+    HOME=1;
+    WORK=2;
+
+    }
+    message PhoneNumber{
+        required string number=1;
+        optional PhoneType type=2 [default =HOME];//[default 表示默认值]
+        //对于optional选项，如果没有给定指定默认设置，那么对于bool而言，默认值是false，数字是0，string为空字符串，enum为第一项
+
+        }
+
+
+    repeated PhoneNumber phones=4;
+}
+
+message AddressBook{
+    repeated Person people=1;//repeated 代表可以重复，相当于list
+}
+
+//protoc 可以通过import 来导入其他protoc定义

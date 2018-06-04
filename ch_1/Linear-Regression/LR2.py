@@ -27,6 +27,8 @@ import matplotlib.pyplot as plt
 import seaborn as sn
 from sklearn.cross_validation import train_test_split
 from sklearn.linear_model import LinearRegression as LR
+from sklearn.decomposition import PCA
+
 
 def load_visualize__data(filename):
     data=pd.read_csv(filename)
@@ -36,11 +38,19 @@ def load_visualize__data(filename):
     #                              "Viscera-weight","Shell-weight"],y_vars="Rings",aspect=0.8,kind='reg')
     #plt.show(plot)
 
+    plot=sn.pairplot(data,x_vars=["Length"],y_vars=["Rings"],aspect=0.8,kind='reg')
+
+    plt.show(plot)
+
     feature_col=["Length","Diameter","Height","Whole-weight","Shucked-weight",
                                   "Viscera-weight","Shell-weight"]
 
     x_data=data[feature_col]
     y_data=data["Rings"]
+
+    pca=PCA(4)
+    pca.fit(x_data)
+    print(pca.explained_variance_,pca.explained_variance_ratio_)
 
     return x_data,y_data
 
@@ -81,4 +91,4 @@ def train_model_and_predict(x_data,y_data):
 if __name__ == '__main__':
     filename="abalone.csv"
     x_data,y_data=load_visualize__data(filename)
-    train_model_and_predict(x_data,y_data)
+    #train_model_and_predict(x_data,y_data)
